@@ -1,0 +1,194 @@
+create table Train(
+    train_num int primary key not null,
+    train_name text not null,
+    source text not null,
+    destination text not null,
+    departure_time time not null,
+    arrival_time time not null,
+    total_seats int
+);
+
+
+insert into Train values(20902,'Vande Bharat Express','Gandhinagar Capital','Mumbai Central','14:05','20:25',72);
+insert into Train values(22222,'Rajdhani Express','New Delhi','Mumbai Terminus','16:55','11:15',56);
+insert into Train values(12051,'MAO Janshatabdi','Mumbai Terminus','Madgaon','05:10','16:30',62);
+insert into Train values(12312,'Netaji Express','Kalka','Howrah Junction','23:55','08:05',72);
+insert into Train values(22179,'LTT Chennai Exp','Lokmanyatilak Terminus','Chennai','13:15','11:00',72);
+insert into Train values(12986,'JP Double Decker','Delhi S Rohilla','Jaipur','17:35','22:00',66);
+insert into Train values(12834,'Pune Bhuj Express','Pune Junction','Ahmedabad Junction','20:10','07:25',54);
+insert into Train values(19309,'Shanti Express','Ahmedabad Junction','Indore','19:10','05:55',67);
+insert into Train values(20959,'BL Vadnagar Sup','Valsad','Vadnagar','05:45','12:50',72);
+insert into Train values(19045,'Tapti Ganga Exp','Surat','Jabalpur','10:10','00:10',70);
+insert into Train values(12909,'Nzm Garibrath','Bandra Terminus','H Nizamuddin','17:30','10:15',71);
+insert into Train values(12017,'DDN Shatabdi Exp','Delhi','Dehradun','06:45','12:55',59);
+insert into Train values(12260,'Duronto','Bikaner','Kanpur Central','12:15','00:35',67);
+insert into Train values(19411,'SBIB DLPC Exp','Sabarmati','Rohtak Junction','09:45','01:34',63);
+insert into Train values(52455,'Himalayan Queen','Kalka','Shimla','12:10','17:20',58);
+insert into Train values(22945,'Saurashtra Mail','Mumbai Central','Okha','21:05','14:55',45);
+insert into Train values(11301,'Udyan Express','Shivaji Mah Terminus','Bengaluru','08:10','06:00',56);
+insert into Train values(12658,'Chennai Mail','Bengaluru','Chennai','22:40','04:15',55);
+insert into Train values(12181,'Dayodai Exp','Jabalpur','Ajmer','20:50','13:55',68);
+insert into Train values(22926,'ADI Vande Bharat Exp','Jamnagar','Ahmedabad ','05:30','10:10',72);
+
+.mode table
+select * from Train;
+
+create table Booked_ticket(
+   PNR varchar(10) primary key not null,
+   train_num int not null,
+   frm text not null,
+   departure_dt date not null,
+   t text not null,
+   arrival_dt date not null,
+   quota text not null,
+   class_booked text not null,
+   foreign key(train_num) references Train(train_num)
+);
+
+
+insert into Booked_ticket values(8855823939,12986,'Gurgaon','2022-09-12','Jaipur','2022-09-12','LD','CC');
+insert into Booked_ticket values(8855829393,22222,'New Delhi','2023-05-01','Bhopal','2023-05-01','GN','CC');
+insert into Booked_ticket values(8888823939,52455,'Kalka','2022-12-11','Shimla','2022-12-11','GN','CC');
+insert into Booked_ticket values(8855820000,20902,'Gandhinagar Capital','2023-11-10','Surat','2023-11-10','GN','EC');
+insert into Booked_ticket values(8585823939,12834,'Pune Junction','2023-03-24','Navsari','2023-03-24','GN','CC');
+insert into Booked_ticket values(8855823941,12312,'Chandigarh','2023-08-04','Howrah Junction','2023-08-05','GN','CC');
+insert into Booked_ticket values(8855289939,19045,'Udhna Junction','2023-04-12','Jabalpur','2023-04-13','GN','CC');
+insert into Booked_ticket values(8869723939,22926,'Jamnagar','2023-07-07','Surendranagar','2023-07-07','GN','EC');
+insert into Booked_ticket values(8855827770,22945,'Borivali','2023-10-16','Dwarka','2023-10-17','GN','CC');
+insert into Booked_ticket values(8298623939,11301,'Shivaji Mah Terminus','2023-08-02','Bengaluru','2023-08-04','GN','SL');
+insert into Booked_ticket values(8855824039,12181,'Jabalpur','2023-01-19','Jaipur','2023-01-20','GN','CC');
+insert into Booked_ticket values(8856958939,20959,'Nadiad Junction','2021-03-03','Vadnagar','2021-03-03','LD','CC');
+insert into Booked_ticket values(8855800039,19411,'Sabarmati','2021-05-29','Abu road','2021-05-29','GN','CC');
+insert into Booked_ticket values(8855829699,12909,'Borivali','2022-09-25','Mathura','2022-09-26','GN','CC');
+insert into Booked_ticket values(8856553939,12051,'Dadar','2023-12-23','Madgaon','2023-12-23','DF','EC');
+insert into Booked_ticket values(8855869639,12017,'New Delhi','2022-11-30','Haridwar Junction','2022-11-30','GN','CC');
+insert into Booked_ticket values(8856303939,20959,'Valsad','2023-02-16','Vadnagar','2023-02-16','TQ','CC');
+insert into Booked_ticket values(8855823221,12658,'Bengaluru','2023-08-04','Chennai','2023-08-05','GN','FC');
+insert into Booked_ticket values(8859630939,19309,'Gandhinagar Capital','2021-02-02','Ujjain Junction','2021-02-02','GN','CC');
+insert into Booked_ticket values(8856923939,22179,'Kalyan','2022-08-22','Chennai','2022-08-22','DF','CC');
+
+.mode table
+select * from Booked_ticket;
+
+
+create table Payment(
+   Transaction_id varchar(11) primary key not null,
+   PNR varchar(10) not null,
+   paymt_dt date not null,
+   paymt_time time not null,
+   base_fare int,
+   service_charge int,
+   catering_charge int,
+   IRCTCConvenience_fee int,
+   TravelInsurance_premium int,
+   PG_charges int,
+   Free_cancellation int,
+   Total_fare int,
+   foreign key(PNR) references Booked_ticket(PNR)
+);
+
+
+insert into Payment values(14481080617,8855823939,'2022-09-01','12:24',600,40,20,35.2,0,7.8,0,703);
+insert into Payment values(14481080569,8855829393,'2023-04-24','15:16',960,50,10,25.3,0,9.6,0,1054.9);
+insert into Payment values(14481080546,8888823939,'2022-11-29','21:45',455,30,0,29.3,0,10.1,0,524.4);
+insert into Payment values(14481080698,8855820000,'2023-10-05','22:00',985,60,95,40.5,10,11.6,0,1202.1);
+insert into Payment values(14481070617,8585823939,'2023-04-23','20:20',300,40,10,36.8,0,5.6,0,392.4);
+insert into Payment values(14481080645,8855823941,'2023-07-27','14:30',1550,43,30,10.9,20.3,2.3,3.2,1659.7);
+insert into Payment values(14481080486,8855289939,'2023-03-30','08:30',863,52,40,26.8,11.6,6.9,2.3,1002.6);
+insert into Payment values(14481080317,8869723939,'2023-07-01','01:19',2589,76,20,20,0,8.3,0,2713.3);
+insert into Payment values(15681080617,8855827770,'2023-09-15','18:18',1697,28,50,34.1,3.6,7.7,0,1820.4);
+insert into Payment values(17481080617,8298623939,'2023-07-17','19:30',2300,36,30,53.6,2.9,3.5,4.5,2430.5);
+insert into Payment values(16574945544,8855824039,'2023-01-01','10:17',1000,29,40,23.6,0,2.8,3.5,1098.9);
+insert into Payment values(15654552617,8856958939,'2021-02-26','11:11',832,60,30,16.9,0,3,0,941.9);
+insert into Payment values(13981080097,8855800039,'2021-05-20','17:01',294,48,10,18.8,30.5,6.5,0,407.8);
+insert into Payment values(16930806100,8855829699,'2022-09-18','16:08',760,65,20,23.6,23.6,4.6,6.1,902.9);
+insert into Payment values(19630806178,8856553939,'2023-12-12','20:38',649,75,30,30.5,0,5.8,3.5,793.8);
+insert into Payment values(12480080617,8855869639,'2022-11-23','09:45',850,61,40,23.3,16.3,7.6,2.8,1001);
+insert into Payment values(10481000617,8856303939,'2023-02-15','16:16',460,46,30,12.9,0,2.8,0,551.7);
+insert into Payment values(11081080666,8855823221,'2023-07-26','19:19',550,30,0,22.8,18.5,0,0,621.3);
+insert into Payment values(14489630617,8859630939,'2021-01-31','20:00',700,45,25,21.5,13.6,0,0,805.1);
+insert into Payment values(12981080617,8856923939,'2022-08-02','18:15',1850,40,35,32.6,0,6.3,0,1936.9);
+
+.mode table
+select * from Payment;
+
+create table Passenger(
+   Psg_id varchar(3) primary key not null,
+   PNR varchar(10),
+   F_name text not null,
+   L_name text not null,
+   Age int,
+   Mobile_no varchar(10),
+   Gender text,
+   check(Psg_id like 'P%'),
+   check(Gender in('M','F')),
+   foreign key(PNR) references Booked_Ticket(PNR)
+);
+
+
+insert into Passenger values('P01',8855823939,'Siddhi','Goyal',26,9652587410,'F');
+insert into Passenger values('P02',8855829393,'Dikshant','Sharma',30,6978512250,'M');
+insert into Passenger values('P03',8888823939,'Aadil','Dhawan',33,9874100220,'M');
+insert into Passenger values('P04',8855820000,'Vani','Singh',35,7515102150,'F');
+insert into Passenger values('P05',8585823939,'Yashvi','Rao',23,9154144142,'F');
+insert into Passenger values('P06',8855823941,'Nisarg','Patel',29,7366956120,'M');
+insert into Passenger values('P07',8855289939,'Kushal','Shah',38,6547410011,'M');
+insert into Passenger values('P08',8869723939,'Srushti','Raval',31,9474211441,'F');
+insert into Passenger values('P09',8855827770,'Jaydeep','Parikh',34,6478484157,'M');
+insert into Passenger values('P10',8298623939,'Om','Soni',39,9775440000,'M');
+insert into Passenger values('P11',8855824039,'Nivita','Shindhe',22,8102152055,'F');
+insert into Passenger values('P12',8856958939,'Mitali','Shah',20,8255152099,'F');
+insert into Passenger values('P13',8855800039,'Priyanshu','Mehta',38,9325400254,'M');
+insert into Passenger values('P14',8855829699,'Hiral','Shah',34,8215152021,'M');
+insert into Passenger values('P15',8856553939,'Vanita','Shah',36,7154852021,'F');
+insert into Passenger values('P16',8855869639,'Piyush','Patel',39,9214210121,'M');
+insert into Passenger values('P17',8856303939,'Palak','Agarwal',26,8151010544,'F');
+insert into Passenger values('P18',8855823221,'Kumud','Dutt',28,6154474158,'F');
+insert into Passenger values('P19',8859630939,'Dev','Goyal',30,6477410154,'M');
+insert into Passenger values('P20',8856923939,'Ayan','Ahuja',21,9023584520,'M');
+
+
+.mode table
+select * from Passenger;
+
+
+create table Ticket(
+   PNR varchar(10) primary key not null,
+   Psg_id varchar(3),
+   Booking_Status varchar(3),
+   Booking_Car_No varchar(3),
+   Booking_Seat_No int,
+   Booking_Seat_Type text,
+   Current_Status varchar(3),
+   Current_Car_No varchar(3),
+   Current_Seat_No int,
+   Current_Seat_Type text,
+   foreign key(Psg_id) references Passenger(Psg_id)
+);
+
+insert into Ticket values(8855823939,'P01','CNF','C6',52,'Window Side','CNF','C6',52,'Window Side');
+insert into Ticket values(8855829393,'P02','CNF','C1',12,'Aisle','CNF','C1',12,'Aisle');
+insert into Ticket values(8888823939,'P03','CNF','C4',15,'Window Side','CNF','C4',15,'Window Side');
+insert into Ticket values(8855820000,'P04','CNF','E3',33,'Aisle','CNF','E3',33,'Aisle');
+insert into Ticket values(8585823939,'P05','CNF','C10',23,'Window Side','CNF','C10',23,'Window Side');
+insert into Ticket values(8855823941,'P06','CNF','C1',10,'Window Side','CNF','C1',10,'Window Side');
+insert into Ticket values(8855289939,'P07','CNF','C6',43,'Aisle','CNF','C6',43,'Aisle');
+insert into Ticket values(8869723939,'P08','CNF','C8',27,'Window Side','CNF','C8',27,'Window Side');
+insert into Ticket values(8855827770,'P09','WL','C2',8,'Aisle','CNF','C12',18,'Aisle');
+insert into Ticket values(8298623939,'P10','CNF','S3',22,'Middle Berth','CNF','S3',22,'Middle Berth');
+insert into Ticket values(8855824039,'P11','CNF','C5',37,'Window Side','CNF','C5',37,'Window Side');
+insert into Ticket values(8856958939,'P12','RAC','C3',19,'Window Side','RAC','C3',19,'Window Side');
+insert into Ticket values(8855800039,'P13','CNF','C7',34,'Aisle','CNF','C7',34,'Aisle');
+insert into Ticket values(8855829699,'P14','CNF','C8',34,'Aisle','CNF','C8',34,'Aisle');
+insert into Ticket values(8856553939,'P15','CNF','E4',37,'Aisle','CNF','E4',37,'Aisle');
+insert into Ticket values(8855869639,'P16','CNF','C6',31,'Window Side','CNF','C6',31,'Window Side');
+insert into Ticket values(8856303939,'P17','TQWL','C10',32,'Window Side','TQWL','C10',32,'Window Side');
+insert into Ticket values(8855823221,'P18','CNF','F3',10,'Window Side','CNF','F3',10,'Window Side');
+insert into Ticket values(8859630939,'P19','CNF','C3',34,'Aisle','CNF','C3',34,'Aisle');
+insert into Ticket values(8856923939,'P20','RAC','C7',38,'Window Side','RAC','C7',38,'Window Side');
+
+
+.mode table
+select * from Ticket;
+
+
